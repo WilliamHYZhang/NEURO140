@@ -34,7 +34,7 @@ for image in images:
   result = response.json()["captionResult"]["text"]
 
   c.execute(f'''
-            UPDATE images set azure_label=? WHERE id=?
+            UPDATE images SET azure_label=? WHERE id=?
             ''',
             (result, image[0]))
   

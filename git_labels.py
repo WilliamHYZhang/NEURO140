@@ -23,7 +23,7 @@ for image in images:
     )
 
   c.execute(f'''
-            UPDATE images set git_label=? WHERE id=?
+            UPDATE images SET git_label=? WHERE id=?
             ''',
             (result, image[0]))
   
