@@ -11,7 +11,11 @@ c.execute('''
 
 c.execute('''
           CREATE TABLE IF NOT EXISTS statistics
-          ([id] INTEGER PRIMARY KEY, [url] TEXT, [label_type] TEXT, [correct] INTEGER)
+          ([id] INTEGER, [url] TEXT, [label_type] TEXT, [correct] INTEGER)
+          ''')
+
+c.execute('''
+          CREATE INDEX id_index ON statistics(id)
           ''')
 
 c.execute('''

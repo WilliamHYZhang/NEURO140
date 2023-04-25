@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h3>Test</h3>
+
+    <img src="{{url}}">
+
+    <p><strong>Which label is human?</strong></p>
+    <form action="{{ url_for('statistics') }}" method="post">
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="hidden" name="label1" value="{{ label1 }}">
+        <input type="hidden" name="label2" value="{{ label2 }}">
+        <input type="radio" name="human_label" value="{{ label1 }}" required> {{ label1 }}<br>
+        <input type="radio" name="human_label" value="{{ label2 }}" required> {{ label2 }}<br>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}
