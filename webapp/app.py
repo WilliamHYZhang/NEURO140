@@ -10,7 +10,7 @@ c = connection.cursor()
 
 app = flask.Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return flask.render_template("index.html")
 
@@ -48,8 +48,24 @@ def test(id):
 
     return flask.render_template("test.html", id=id, url=url, label1=label1, label2=label2)
 
+@app.route("/statistics", methods=["GET"])
+def get_statistics():
+    # calculate statistics
+    git_correct = c.execute("SELECT COUNT (*) FROM statistics WHERE label_type='git' AND correct=1").fetchone()[0]
+    git_total = c.execute("SELECT COUNT (*) FROM statistics WHERE label_type='git'").fetchone()[0]
+    git_percentage = f"{git_correct/git_total:.2%}"
+
+    azure_correct = c.execute("SELECT COUNT (*) FROM statistics WHERE label_type='azure' AND correct=1").fetchone()[0]
+    azure_total = c.execute("SELECT COUNT (*) FROM statistics WHERE label_type='azure'").fetchone()[0]
+    azure_percentage = f"{azure_correct/azure_total:.2%}"
+
+    connection.commit()
+
+    return flask.render_template("statistics.html", stats=[["GIT", git_correct, git_total, git_percentage], ["AZURE", azure_correct, azure_total, azure_percentage]])
+    
+
 @app.route("/statistics", methods=["POST"])
-def statistics():
+def post_statistics():
     # get form inputs
     id = int(flask.request.form.get("id"))
     label1 = flask.request.form.get("label1")

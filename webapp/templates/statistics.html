@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Statistics
+{% endblock %}
+
+{% block main %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>AI Model</th>
+                <th>Total Correct</th>
+                <th>Total Sample Size</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in stats %}
+            <tr>
+                {% for s in stat %}
+                <td>{{ s }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
